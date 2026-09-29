@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BetZone</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0f14;
+      color: white;
+    }
+
+    header {
+      background: #111820;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .saldo {
+      margin-top: 10px;
+      color: #38d39f;
+      font-weight: bold;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .titulo {
+      margin-bottom: 20px;
+    }
+
+    .jogo {
+      background: #151d27;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
+
+    .times {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .odds {
+      display: flex;
+      gap: 10px;
+    }
+
+    .odd {
+      flex: 1;
+      background: #202b38;
+      border: 1px solid #344354;
+      color: white;
+      padding: 14px 5px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .odd:hover {
+      background: #263849;
+    }
+
+    .aviso {
+      text-align: center;
+      margin-top: 30px;
+      color: #8d99a8;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎯 BetZone</h1>
+    <div class="saldo">Saldo virtual: R$ 1.000,00</div>
+  </header>
+
+  <main>
+
+    <h2 class="titulo">⚽ Jogos de hoje</h2>
+
+    <div class="jogo">
+      <div class="times">
+        Flamengo × Palmeiras
+      </div>
+
+      <div class="odds">
+        <button class="odd">Flamengo<br>2.10</button>
+        <button class="odd">Empate<br>3.20</button>
+        <button class="odd">Palmeiras<br>2.70</button>
+      </div>
+    </div>
+
+    <div class="jogo">
+      <div class="times">
+        Santos × Corinthians
+      </div>
+
+      <div class="odds">
+        <button class="odd">Santos<br>2.40</button>
+        <button class="odd">Empate<br>3.10</button>
+        <button class="odd">Corinthians<br>2.50</button>
+      </div>
+    </div>
+
+    <div class="aviso">
+      Plataforma exclusivamente educativa.
+      Todas as apostas e valores são fictícios.
+    </div>
+
+  </main>
+
+</body>
+</html>
