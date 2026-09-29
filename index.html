@@ -1,127 +1,463 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BetZone</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BetZone</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b0f14;
-      color: white;
-    }
+<style>
+*{box-sizing:border-box}
 
-    header {
-      background: #111820;
-      padding: 20px;
-      text-align: center;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#080d13;
+  color:white;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 32px;
-    }
+header{
+  background:#111923;
+  padding:18px;
+  position:sticky;
+  top:0;
+  z-index:5;
+  border-bottom:1px solid #263241;
+}
 
-    .saldo {
-      margin-top: 10px;
-      color: #38d39f;
-      font-weight: bold;
-    }
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
 
-    main {
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
-    }
+.logo{
+  font-size:27px;
+  font-weight:bold;
+}
 
-    .titulo {
-      margin-bottom: 20px;
-    }
+.saldo{
+  color:#35d39f;
+  font-weight:bold;
+  font-size:15px;
+}
 
-    .jogo {
-      background: #151d27;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 15px;
-    }
+nav{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  margin-top:15px;
+}
 
-    .times {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
+nav button{
+  border:0;
+  background:#202c3a;
+  color:white;
+  padding:10px 16px;
+  border-radius:20px;
+  white-space:nowrap;
+}
 
-    .odds {
-      display: flex;
-      gap: 10px;
-    }
+nav button.ativo{
+  background:#35b98b;
+  color:#06120e;
+  font-weight:bold;
+}
 
-    .odd {
-      flex: 1;
-      background: #202b38;
-      border: 1px solid #344354;
-      color: white;
-      padding: 14px 5px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-    }
+main{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
 
-    .odd:hover {
-      background: #263849;
-    }
+h1{
+  font-size:25px;
+}
 
-    .aviso {
-      text-align: center;
-      margin-top: 30px;
-      color: #8d99a8;
-      font-size: 13px;
-    }
-  </style>
+.jogo{
+  background:#141d28;
+  border:1px solid #263548;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:16px;
+}
+
+.liga{
+  color:#8fa1b5;
+  font-size:13px;
+  margin-bottom:10px;
+}
+
+.times{
+  font-size:19px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.mercados{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+
+.cota{
+  background:#202c3a;
+  border:1px solid #35475b;
+  color:white;
+  padding:12px 5px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.cota:hover{
+  background:#2b3b4d;
+}
+
+.cota strong{
+  display:block;
+  margin-top:5px;
+  color:#45d8a5;
+}
+
+.cupom{
+  position:fixed;
+  right:15px;
+  bottom:15px;
+  width:calc(100% - 30px);
+  max-width:390px;
+  background:#121b25;
+  border:1px solid #34475b;
+  border-radius:18px;
+  padding:18px;
+  z-index:10;
+  box-shadow:0 10px 40px #000;
+}
+
+.cupom h2{
+  margin-top:0;
+}
+
+.selecao{
+  background:#1d2937;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.valor{
+  width:100%;
+  padding:13px;
+  border-radius:10px;
+  border:1px solid #405266;
+  background:#0c1219;
+  color:white;
+  font-size:16px;
+  margin:8px 0;
+}
+
+.confirmar{
+  width:100%;
+  border:0;
+  padding:14px;
+  border-radius:10px;
+  background:#35c995;
+  color:#06130f;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.fechar{
+  float:right;
+  background:none;
+  border:0;
+  color:#aaa;
+  font-size:20px;
+}
+
+.historico{
+  background:#111923;
+  padding:16px;
+  border-radius:14px;
+  margin-top:25px;
+}
+
+.item-historico{
+  border-bottom:1px solid #293543;
+  padding:10px 0;
+  color:#b8c4d1;
+}
+
+@media(max-width:500px){
+  .mercados{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .cota{
+    font-size:13px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>🎯 BetZone</h1>
-    <div class="saldo">Saldo virtual: R$ 1.000,00</div>
-  </header>
-
-  <main>
-
-    <h2 class="titulo">⚽ Jogos de hoje</h2>
-
-    <div class="jogo">
-      <div class="times">
-        Flamengo × Palmeiras
-      </div>
-
-      <div class="odds">
-        <button class="odd">Flamengo<br>2.10</button>
-        <button class="odd">Empate<br>3.20</button>
-        <button class="odd">Palmeiras<br>2.70</button>
-      </div>
+<header>
+  <div class="top">
+    <div class="logo">🎯 BetZone</div>
+    <div class="saldo">
+      Saldo: R$ <span id="saldo">1.000,00</span>
     </div>
+  </div>
 
-    <div class="jogo">
-      <div class="times">
-        Santos × Corinthians
-      </div>
+  <nav>
+    <button class="ativo" onclick="filtrar('todos',this)">Todos</button>
+    <button onclick="filtrar('futebol',this)">⚽ Futebol</button>
+    <button onclick="filtrar('basquete',this)">🏀 Basquete</button>
+    <button onclick="filtrar('tenis',this)">🎾 Tênis</button>
+  </nav>
+</header>
 
-      <div class="odds">
-        <button class="odd">Santos<br>2.40</button>
-        <button class="odd">Empate<br>3.10</button>
-        <button class="odd">Corinthians<br>2.50</button>
-      </div>
+<main>
+
+<h1>🔥 Jogos em destaque</h1>
+
+<div id="jogos">
+
+  <div class="jogo" data-esporte="futebol">
+    <div class="liga">🇧🇷 Campeonato Brasileiro</div>
+    <div class="times">Flamengo × Palmeiras</div>
+
+    <div class="mercados">
+      <button class="cota" onclick="selecionar('Flamengo',2.10)">
+        Flamengo
+        <strong>2.10</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('Empate',3.20)">
+        Empate
+        <strong>3.20</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('Palmeiras',2.70)">
+        Palmeiras
+        <strong>2.70</strong>
+      </button>
     </div>
+  </div>
 
-    <div class="aviso">
-      Plataforma exclusivamente educativa.
-      Todas as apostas e valores são fictícios.
+  <div class="jogo" data-esporte="futebol">
+    <div class="liga">🇧🇷 Campeonato Brasileiro</div>
+    <div class="times">Santos × Corinthians</div>
+
+    <div class="mercados">
+      <button class="cota" onclick="selecionar('Santos',2.40)">
+        Santos
+        <strong>2.40</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('Empate',3.10)">
+        Empate
+        <strong>3.10</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('Corinthians',2.50)">
+        Corinthians
+        <strong>2.50</strong>
+      </button>
     </div>
+  </div>
 
-  </main>
+  <div class="jogo" data-esporte="basquete">
+    <div class="liga">🏀 Basquete</div>
+    <div class="times">Lakers × Celtics</div>
+
+    <div class="mercados">
+      <button class="cota" onclick="selecionar('Lakers',1.85)">
+        Lakers
+        <strong>1.85</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('Celtics',2.05)">
+        Celtics
+        <strong>2.05</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('Total +',1.90)">
+        Total +
+        <strong>1.90</strong>
+      </button>
+    </div>
+  </div>
+
+  <div class="jogo" data-esporte="tenis">
+    <div class="liga">🎾 Tênis</div>
+    <div class="times">Jogador A × Jogador B</div>
+
+    <div class="mercados">
+      <button class="cota" onclick="selecionar('Jogador A',1.70)">
+        Jogador A
+        <strong>1.70</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('Jogador B',2.20)">
+        Jogador B
+        <strong>2.20</strong>
+      </button>
+
+      <button class="cota" onclick="selecionar('2 sets',1.95)">
+        2 sets
+        <strong>1.95</strong>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<div class="historico">
+  <h2>📜 Histórico</h2>
+  <div id="historico">
+    Nenhuma aposta simulada ainda.
+  </div>
+</div>
+
+</main>
+
+<div class="cupom" id="cupom" style="display:none">
+
+  <button class="fechar" onclick="fecharCupom()">✕</button>
+
+  <h2>🧾 Cupom</h2>
+
+  <div class="selecao">
+    <div id="escolha">Seleção</div>
+    <small>Cotação: <span id="odd">0.00</span></small>
+  </div>
+
+  <label>Valor fictício da aposta:</label>
+
+  <input
+    class="valor"
+    id="valor"
+    type="number"
+    min="1"
+    step="1"
+    placeholder="Ex.: 50"
+    oninput="calcular()"
+  >
+
+  <p>
+    Retorno potencial:
+    <strong>R$ <span id="retorno">0,00</span></strong>
+  </p>
+
+  <button class="confirmar" onclick="apostar()">
+    CONFIRMAR APOSTA SIMULADA
+  </button>
+
+</div>
+
+<script>
+
+let saldo = 1000;
+let selecaoAtual = "";
+let oddAtual = 0;
+
+function selecionar(nome, odd){
+
+  selecaoAtual = nome;
+  oddAtual = odd;
+
+  document.getElementById("escolha").textContent = nome;
+  document.getElementById("odd").textContent = odd.toFixed(2);
+
+  document.getElementById("valor").value = "";
+  document.getElementById("retorno").textContent = "0,00";
+
+  document.getElementById("cupom").style.display = "block";
+}
+
+function calcular(){
+
+  let valor = Number(document.getElementById("valor").value) || 0;
+  let retorno = valor * oddAtual;
+
+  document.getElementById("retorno").textContent =
+    retorno.toLocaleString("pt-BR",{
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+}
+
+function apostar(){
+
+  let valor = Number(document.getElementById("valor").value);
+
+  if(!valor || valor <= 0){
+    alert("Digite um valor fictício para a aposta.");
+    return;
+  }
+
+  if(valor > saldo){
+    alert("Saldo virtual insuficiente.");
+    return;
+  }
+
+  saldo -= valor;
+
+  document.getElementById("saldo").textContent =
+    saldo.toLocaleString("pt-BR",{
+      minimumFractionDigits:2,
+      maximumFractionDigits:2
+    });
+
+  let historico = document.getElementById("historico");
+
+  if(historico.textContent.includes("Nenhuma aposta")){
+    historico.innerHTML = "";
+  }
+
+  let item = document.createElement("div");
+  item.className = "item-historico";
+
+  item.innerHTML =
+    "🎯 " + selecaoAtual +
+    " — R$ " +
+    valor.toLocaleString("pt-BR",{minimumFractionDigits:2}) +
+    " — Cotação " + oddAtual.toFixed(2);
+
+  historico.prepend(item);
+
+  alert("Aposta simulada registrada!");
+
+  fecharCupom();
+}
+
+function fecharCupom(){
+  document.getElementById("cupom").style.display = "none";
+}
+
+function filtrar(esporte, botao){
+
+  document.querySelectorAll("nav button")
+    .forEach(b => b.classList.remove("ativo"));
+
+  botao.classList.add("ativo");
+
+  document.querySelectorAll(".jogo").forEach(jogo => {
+
+    if(esporte === "todos"){
+      jogo.style.display = "block";
+    }
+    else if(jogo.dataset.esporte === esporte){
+      jogo.style.display = "block";
+    }
+    else{
+      jogo.style.display = "none";
+    }
+
+  });
+}
+
+</script>
 
 </body>
 </html>
